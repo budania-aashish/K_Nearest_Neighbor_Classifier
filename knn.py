@@ -1,6 +1,6 @@
 #python implementation of KNN algorithm 
 
-# Importing libraries
+# Importing libraries for mathematical functions 
 import pandas as pd
 import numpy as np
 import math
@@ -15,25 +15,28 @@ data.head()
 # data is a vector and it can more than one attributes 
 def euclideanDistance(data1, data2, length):
     distance = 0
+    #data1 and data2 both of them are from training and testing sets 
     for x in range(length):
+	## Euclidean method distance 
         distance += np.square(data1[x] - data2[x])
     return np.sqrt(distance)
 
-# Defining our KNN model
+## defining the KNN model fror training set, testing instance and the value of k
 def knn(trainingSet, testInstance, k):
  
     distances = {}
     sort = {}
  
-    length = testInstance.shape[1]
-    # Calculating euclidean distance between each row of training data and test data
+    length = testInstance.shape[1] #lehgth is without label, so it's perfect for Euclidean distance
+    #for all the rows of training data 
     for x in range(len(trainingSet)):
+	#finding the euclidean distance with test instance 
         dist = euclideanDistance(testInstance, trainingSet.iloc[x], length)
         distances[x] = dist[0]
-
-	#Sorting them on the basis of distance
+    #Sorting them on the basis of distance in ascending order 
     sorted_d = sorted(distances.items(), key=operator.itemgetter(1))
- 
+     
+    #a list of neighbors 
     neighbors = []
     
     # Extracting top k neighbors
